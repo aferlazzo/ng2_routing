@@ -1,6 +1,9 @@
+<!doctype mthl>
 <html>
   <head>
-    <title>Angular 2 QuickStart</title>
+		<!-- the app folder is in the application root -->
+		<script>document.write('<base href="' + document.location + '" />');</script>
+    <title>Angular 2 Routing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
     <!-- 1. Load libraries -->
@@ -12,7 +15,9 @@
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <!-- 2. Configure SystemJS -->
+    <!-- needed for routing -->
+		<script src="node_modules/angular2/bundles/router.dev.js"></script>
+		<!-- 2. Configure SystemJS -->
     <script>
       System.config({
         packages: {
