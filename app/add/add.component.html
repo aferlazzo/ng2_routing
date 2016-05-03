@@ -1,0 +1,72 @@
+<div class="component">
+	<div class="row">
+		<h1 class="col-md-offset-2 col-md-8 text-center">Add Driver</h1>
+	</div>
+	<form class="driver_form">
+		<div class="row">
+			<div class="col-md-offset-2 col-md-4">
+				<label for="driver.drivername">
+					User Name
+				</label>
+				<input id="driver.drivername" [(ngModel)]="driver.drivername" type="text">
+				<label for="driver.password">
+					Password
+				</label>
+				<input id="driver.password" [(ngModel)]="driver.password" type="text">
+				<label for="driver.ability">
+					Ability
+				</label>
+				<select id="driver.ability">
+					<option>Select One</option>
+					<option>Scooter</option>
+					<option>Motorcycle</option>
+					<option>Car - automatic transmission</option>
+					<option>Car - manual transmission</option>
+					<option>Truck - 18 wheeler</option>
+				</select>
+				<label for="driver.firstname">
+					First Name
+				</label>
+				<input id="driver.firstname" [(ngModel)]="driver.firstname" type="text">
+				<label for="driver.lastname">
+					Last Name
+				</label>
+				<input id="driver.lastname" [(ngModel)]="driver.lastname" type="text">
+				<label for="driver.email">
+					Email
+				</label>
+				<input id="driver.email" [(ngModel)]="driver.email" type="text">
+			</div>
+			<div class="col-md-4">
+				<label for="driver.address">
+					Address
+				</label>
+				<input id="driver.address" [(ngModel)]="driver.address" type="text">
+				<label for="driver.city">
+					City
+				</label>
+				<input id="driver.city" [(ngModel)]="driver.city" type="text">
+				<label for="driver.state">
+					State
+				</label>
+				<input id="driver.state" [(ngModel)]="driver.state" type="text">
+				<label for="driver.zip">
+					Zipcode
+				</label>
+				<input id="driver.zip" [(ngModel)]="driver.zip" type="text">
+				<label for="driver.phone">
+					Phone
+				</label>
+				<input id="driver.phone" [(ngModel)]="driver.phone" type="text">
+			</div>
+		</div>
+		<div class="row btn col-md-offset-8 col-md-2">
+			<span class="col-md-8 text-right">
+				<input type="button" value="Cancel" (click)="cancel_driver()">
+			</span>
+			<span class="col-md-4 text-right">
+				<input type="submit" value="Add" (click)="add_driver(driver)">
+			</span>
+		</div>
+	</form>
+</div>
