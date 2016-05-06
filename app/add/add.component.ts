@@ -36,11 +36,12 @@ export class AddComponent {
 	add_driver(driver) {
 		this._addService.add_driver_API(driver)
 				.subscribe(
-						driver  => alert("add.component.ts added driver message " + driver),
+						driver  => /* added, so now clear fields */ this.clear_driver(),
 						error =>  this.errorMessage = <any>error);
+
 	}
 
-	cancel_driver() {
+	clear_driver() {
 		this.driver.drivername = "";
 		this.driver.password = "";
 		this.driver.ability = "";

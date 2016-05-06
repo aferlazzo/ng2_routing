@@ -10,11 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 // check to see if variables were received via the \$_POST global variable
 if (isset($_POST['drivername'])) {
 	$drivername = isset($_POST['drivername']) ? urldecode($_POST['drivername']) : '';
-	print("<p>line ".__LINE__." add_endpoint.php sees \$_POST['drivername'] as |".$drivername."|</p>");
+	//print("<p>line ".__LINE__." add_endpoint.php sees \$_POST['drivername'] as |".$drivername."|</p>");
 
 
-	print("<p>line ".__LINE__." This is a var_dump(\$_POST)</p>");
-	var_dump($_POST);
+	//print("<p>line ".__LINE__." This is a var_dump(\$_POST)</p>");
+	//var_dump($_POST);
 
 
 	// list all the $_POST variables that were passed in from the caller
@@ -23,7 +23,7 @@ if (isset($_POST['drivername'])) {
 	foreach($_POST as $key => $val) {
 		$post_list .= $key . "=".urldecode($val) . "<br>";
 	}
-	print("$post_list");
+	//print("$post_list");
   //var_dump($_POST['drivername']);
 
 	$password		= isset($_POST['password'])		? $_POST['password']	: '';
@@ -45,16 +45,16 @@ if (isset($_POST['drivername'])) {
 
 	if ($rest_vars) {
 
-		print("<p>line ".__LINE__." add_endpoint.php sees	\$rest_vars</p>");
-		print("<p>line ".__LINE__." Now looking at php://input: \$rest_vars and see the string $rest_vars</p>");
+		//print("<p>line ".__LINE__." add_endpoint.php sees	\$rest_vars</p>");
+		//print("<p>line ".__LINE__." Now looking at php://input: \$rest_vars and see the string $rest_vars</p>");
 
-		print("<p>line ".__LINE__." This is a var_dump(\$rest_vars)</p>");
-		var_dump($rest_vars);
+		//print("<p>line ".__LINE__." This is a var_dump(\$rest_vars)</p>");
+		//var_dump($rest_vars);
 
 		$decoded_json = json_decode($rest_vars);
 
-		print("<p>line ".__LINE__." this is a var_dump(\$decoded_json)</p>");
-		var_dump($decoded_json);
+		//print("<p>line ".__LINE__." this is a var_dump(\$decoded_json)</p>");
+		//var_dump($decoded_json);
 		if ($decoded_json) {
 			$drivername = $decoded_json->{'drivername'};
 			$password = $decoded_json->{'password'};
@@ -64,21 +64,20 @@ if (isset($_POST['drivername'])) {
 			$email = $decoded_json->{'email'};
 			$address = $decoded_json->{'address'};
 			$city = $decoded_json->{'city'};
-			$ability = $decoded_json->{'ability'};
 			$state = $decoded_json->{'state'};
 			$zip = $decoded_json->{'zip'};
 			$phone = $decoded_json->{'phone'};
 
-			print("<p>line ".__LINE__." from json_decode() \$drivername $drivername</p>");
-			print("<p>line ".__LINE__." from json_decode() \$password		$password</p>");
-			print("<p>line ".__LINE__." from json_decode() \$ability		$ability</p>");
-			print("<p>line ".__LINE__." from json_decode() \$firstname	$firstname</p>");
-			print("<p>line ".__LINE__." from json_decode() \$lastname		$lastname</p>");
-			print("<p>line ".__LINE__." from json_decode() \$email			$email</p>");
-			print("<p>line ".__LINE__." from json_decode() \$address		$address</p>");
-			print("<p>line ".__LINE__." from json_decode() \$city				$city</p>");
-			print("<p>line ".__LINE__." from json_decode() \$zip				$zip</p>");
-			print("<p>line ".__LINE__." from json_decode() \$phone			$phone</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$drivername $drivername</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$password		$password</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$ability		$ability</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$firstname	$firstname</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$lastname		$lastname</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$email			$email</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$address		$address</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$city				$city</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$zip				$zip</p>");
+			//print("<p>line ".__LINE__." from json_decode() \$phone			$phone</p>");
 		}
 	}
 }
@@ -95,7 +94,8 @@ if (isset($_POST['drivername'])) {
 
 
 if (isset($drivername) == false) {
-	exit("Exiting. The drivername was not received.");
+	http_response_code(403);
+	exit("Exiting add_endpoint.php because the drivername was not received.");
 }
 
 
@@ -170,14 +170,14 @@ function addNewDriver($db, $drivername, $password, $ability,
 	$sql .= $state . "', '";
 	$sql .= $zip . "', '";
 	$sql .= $phone . "')";
-	print("<p>line ".__LINE__." \$sql statement:<br>$sql</p>");
+	//print("<p>line ".__LINE__." \$sql statement:<br>$sql</p>");
 
 	$ret = $db->exec($sql);
 	if(!$ret){
-		//print("<p>" . $db->lastErrorMsg() . "</p>");
 		$ret = $db->lastErrorMsg();
+		//print("<p>ERROR: $ret</p>");
 		if ($ret == "UNIQUE constraint failed: driver.DRIVERNAME") {
-			$ret = "duplicate drivername |" . $drivername . "|";
+			$ret = "duplicate drivername '" . $drivername . "'";
 		}
 	} else {
 		//print("<p>A row was successfully added to the 'driver' table</p>");
@@ -197,11 +197,16 @@ $ret = addNewDriver($db, urlencode($drivername), urlencode($password), urlencode
 $db->close();
 
 // include a Status Code in the http reply header
+//print("<p>SQLite ADD returned message: $ret</p>");
+
+
+// Note that if any of the debug messages are uncommented and print then the http_response_code doesn't work
 if ($ret == "added") {
 	http_response_code(200);
+	exit($ret);
 } else {
 	http_response_code(403);
+	exit($ret);
 }
 
-exit();
 ?>

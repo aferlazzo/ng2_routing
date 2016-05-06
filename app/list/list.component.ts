@@ -14,8 +14,10 @@ export class ListComponent implements OnInit {
 
 	constructor (	private _listService: ListService	) { }
 
+	// the model being shown on page
 	driver_list;
 	errorMessage: "";
+	saved_drivername="";
 
 
 	ngOnInit() { this.tryToList(); }
@@ -31,5 +33,31 @@ export class ListComponent implements OnInit {
 						},
 						error =>  this.errorMessage = <any>error
 				);
+	}
+
+	delete_row(i, drivername) {
+		console.log("delete_row Attempting to delete driver " +drivername);
+		this._listService.delete_row_API(drivername)
+				.subscribe(
+						drivers => {
+							// perhaps drivers should update the list of drivers model, the drivers[] array
+							// so the list seen by the user is updated
+							this.driver_list = drivers;
+							console.log("list.component: deleted_row");
+						},
+						error => {
+							this.errorMessage = <any>error;
+						}
+				);
+	}
+
+	// toggle row background color on click
+	toggle_row_td(i, showStyle, rowNumber) {
+		//console.log("toggling row " + i);
+		if (( showStyle) && (rowNumber == i)) {
+			return "#00f6ff";
+		} else {
+			return "";
+		}
 	}
 }

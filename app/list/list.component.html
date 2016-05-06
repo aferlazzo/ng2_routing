@@ -1,16 +1,43 @@
-<h1>Driver List</h1>
 
-<table>
-	<thead>
-	<th>Driver</th><th>Password</th><th>Ability</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Address</th>
-	<th>City</th><th>State</th><th>Zip</th><th>Phone</th>
-	</thead>
-
-	<tr *ngFor="#driver of driver_list">
-		<td> {{driver.drivername}} </td><td> {{driver.password}} </td><td> {{driver.ability}} </td><td> {{driver.firstname}} </td>
-		<td> {{driver.lastname}} </td><td> {{driver.email}} </td><td> {{driver.address}} </td>
-		<td> {{driver.city}} </td><td> {{driver.state}} </td><td> {{driver.zip}} </td><td> {{driver.phone}} </td>
-	</tr>
-
-
-</table>
+<div class="content">
+	<div class="row">
+		<h1>Driver List</h1>
+	</div>
+	<div class="row">
+		<table>
+			<thead>
+			<th>Delete</th><th>Driver</th><th>Password</th><th>Ability</th>
+			<th>First Name</th><th>Last Name</th><th>Email</th><th>Address</th>
+			<th>City</th><th>State</th><th>Zip</th><th>Phone</th>
+			</thead>
+			<tbody>
+				<tr *ngFor="#driver of driver_list; #i=index">
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)" class="text-center"
+							(click)="showStyle = !showStyle;rowNumber = i">	<input id="row{{i}}" (click)="delete_row(i, driver.drivername)" type="checkbox"> </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.drivername}}</td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> <!--{{driver.password}}--> *********** </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.ability}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.firstname}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.lastname}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.email}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.address}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.city}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.state}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.zip}} </td>
+					<td [style.background-color]="toggle_row_td(i, showStyle, rowNumber)"
+							(click)="showStyle = !showStyle;rowNumber = i"> {{driver.phone}} </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
