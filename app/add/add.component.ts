@@ -1,44 +1,50 @@
 
 import { Component }					from 'angular2/core';
+import { FORM_DIRECTIVES, FORM_PROVIDERS }		from 'angular2/common';
 import { HTTP_PROVIDERS }			from 'angular2/http';
-import { Driver }  						from './driver';
-import { AddService }					from '../add/add.service';
+import { Driver }							from '../list/driver';
+import { AddService }					from './add.service';
 
 @Component({
 	selector: 'my-add',
 	templateUrl: 'app/add/add.component.html',
 	styleUrls: ['app/add/add.component.css'],
-	providers:	[	HTTP_PROVIDERS,	AddService ]
+	providers:	[ FORM_PROVIDERS, HTTP_PROVIDERS, AddService ],
+	directives: [ FORM_DIRECTIVES ]
 })
-export class AddComponent {
 
-	constructor (	private _addService: AddService	) { }
+export class AddComponent {
+	
+	constructor (
+		private _addService: AddService
+	) { }
 
 	driver: Driver = {
-		drivername: "Rocky",
-		password:"secret",
+		drivername: "",
+		password:"",
 		ability: "",
-		firstname: "Tony",
-		lastname:"Ferlazzo",
-		email:"aferlazzo@gmail.com",
-		address: "5558 West Shady Grove Drive",
-		city: "Tucson",
-		state:"AZ",
-		zip: "85742",
-		phone: "925-399-5359"
+		firstname: "",
+		lastname:"",
+		email:"",
+		address: "",
+		city: "",
+		state:"",
+		zip: "",
+		phone: ""
 	};
 
-	errorMessage: "";
-
+	errorMessage: string;
+	successMessage: string;
+	submitted = false;
+	
 	/*
 		add_driver() is the event handler for clicking the add button. It calls the add service.
 	 */
 	add_driver(driver) {
 		this._addService.add_driver_API(driver)
 				.subscribe(
-						driver  => /* added, so now clear fields */ this.clear_driver(),
+						driver  => /* if here then record added, so now clear fields */ this.clear_driver(),
 						error =>  this.errorMessage = <any>error);
-
 	}
 
 	clear_driver() {

@@ -23,10 +23,10 @@ export class ListService {
 
 		getHeaders = new Headers({'Content-Type': 'application/text'});
 
-		console.log("tryToListAPI location.host: " + location.host);
-		console.log("tryToListAPI tail: /ng2_demo/app/list/list_endpoint.php");
+		//console.log("tryToListAPI location.host: " + location.host);
+		//console.log("tryToListAPI tail: /ng2_demo/app/list/list_endpoint.php");
 		let list_url = "http://" + location.host + "/ng2_demo/app/list/list_endpoint.php";
-		console.log("tryToListAPI list_url: " + list_url);
+		//console.log("tryToListAPI list_url: " + list_url);
 
 		driver_data = this.http.get(list_url, {headers: getHeaders})
 				.map(this.extractData)
@@ -87,13 +87,13 @@ export class ListService {
 	 We expect the endpoint to return TRUE if the query succeeded, FALSE on failure
 	 */
 	private deleteData(response: Response) {
-		var body = response.json();
+		var body = response._body;
 
 		if (response.status < 200 || response.status >= 300) {
 			throw new Error('Bad response status: ' +	response.status);
 		}
 
-		console.log("deleteData response: "+ response.statusText);
+		console.log("deleteData response: "+ response._body);
 		return body || [{ }];
 	}
 

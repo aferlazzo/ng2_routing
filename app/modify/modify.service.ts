@@ -2,17 +2,17 @@
 import {Injectable}								from 'angular2/core';
 import {Http, Response, Headers}	from 'angular2/http';
 import {RequestOptions}						from 'angular2/http';
-import { Driver }									from '../list/driver';
+import { Driver }									from '.';
 import {Observable}								from 'rxjs/Observable';
 
 @Injectable()
-export class AddService {
+export class ModifyService {
 	constructor (private http: Http) { }
 
 	private normal_response;
 	private error_response;
 
-	add_driver_API(driver:Driver): Observable<Driver> {
+	modify_driver_API(driver:Driver): Observable<Driver> {
 		var driver_json_input;
 
 		driver_json_input = {
@@ -36,17 +36,17 @@ export class AddService {
 		//let len = body.length - 2;
 		//body = body.substr(1, len);
 
-		console.log("add_driver_API body (the json string input) " + body);
+		console.log("modify_driver_API body (the json string input) " + body);
 
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });
 
-		//console.log("add_driver_API location.host: " + location.host);
-		//console.log("add_driver_API tail: /ng2_demo/app/list/list_endpoint.php");
-		let add_url = "http://" + location.host + "/ng2_demo/app/add/add_endpoint.php";
-		//console.log("add_driver_API list_url: " + add_url);
+		//console.log("modify_driver_API location.host: " + location.host);
+		//console.log("modify_driver_API tail: /ng2_demo/app/list/list_endpoint.php");
+		let modify_url = "http://" + location.host + "/ng2_demo/app/modify/modify_endpoint.php";
+		//console.log("modify_driver_API list_url: " + modify_url);
 
-		return this.http.post(add_url, body, options)
+		return this.http.post(modify_url, body, options)
 										.map(this.extractData)
 										.catch(this.handleError);
 	}

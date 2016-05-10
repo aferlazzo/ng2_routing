@@ -1,3 +1,20 @@
+body {
+	margin: 2em;
+}
+body, input[text], button {
+	color: #888;
+	font-family: Cambria, Georgia;
+}
+input[id^='driver'], select[id^='driver'] {
+	width: 100%;
+}
+select[id^='driver'] {
+	line-height: 26px;
+	height: 26px;
+}
+.btn.row {
+	margin-top: -3.3rem;
+}
 h1 {
 	color: #369;
 	font-family: Arial, Helvetica, sans-serif;
@@ -7,13 +24,6 @@ h2, h3 {
 	color: #444;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: lighter;
-}
-body {
-	margin: 2em;
-}
-body, input[text], button {
-	color: #888;
-	font-family: Cambria, Georgia;
 }
 a {
 	cursor: pointer;
@@ -56,11 +66,4 @@ nav a:hover {
 nav a.router-link-active {
 	color: #039be5;
 }
-td, th {
-	padding: 0 1em;
-}
-td:hover {
-	cursor:pointer;
-}
-
 

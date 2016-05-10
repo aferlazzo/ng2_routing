@@ -1,26 +1,32 @@
 
 import { Component, OnInit }	from 'angular2/core';
-import { HTTP_PROVIDERS }			from 'angular2/http';
-import { Driver }  						from './driver';
-import { ListService }				from '../list/list.service';
+import { ListService }				from './list.service';
 
 @Component({
 	selector: 'my-list',
 	templateUrl: 'app/list/list.component.html',
 	styleUrls: ['app/list/list.component.css'],
-	providers:	[	HTTP_PROVIDERS,	ListService ]
+	providers:	[ ListService ]
 })
+
 export class ListComponent implements OnInit {
 
-	constructor (	private _listService: ListService	) { }
+	ngOnInit() {
+		this.tryToList();
+	}
+
+	constructor (
+			private _listService: ListService
+
+			//private _appComponent: AppComponent
+	) { }
 
 	// the model being shown on page
 	driver_list;
-	errorMessage: "";
-	saved_drivername="";
+	errorMessage = "";
+	saved_drivername = "";
 
 
-	ngOnInit() { this.tryToList(); }
 	/*
 		tryToList() is the event handler for clicking the list button
 	 */
